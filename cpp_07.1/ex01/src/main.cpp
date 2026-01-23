@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: thodavid <thodavid@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kobe <kobe@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 09:57:19 by thodavid          #+#    #+#             */
-/*   Updated: 2026/01/22 15:21:10 by thodavid         ###   ########.fr       */
+/*   Updated: 2026/01/23 17:08:21 by kobe             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,17 @@
 #include <stdio.h>
 
 template<typename T>
-void	iter(T &a, int const &len, void *f()){
+void	iter(T *arr, int len, void (*f)(T &)){
+	for(int i = 0; i < len; i++)
+		f(arr[i]);
+	return;
+}
+
+
+template <typename T>
+void iter(T const *arr, int len, void (*f)(T const &))
+{
+    int i = 0;
 	for(int i = 0; i < len; i++)
 		f(arr[i]);
 	return;
@@ -26,12 +36,17 @@ void f(T &x){
 		x++;
 }
 
-template<typename T>
-void	printArr(T &arr){
-	for(int i = 0; i < 3; i++)
-		std::cout << arr[i] << '\n';
+template <typename T, std::size_t N>
+void printArr(T const (&arr)[N])
+{
+    std::size_t i = 0;
+    while (i < N)
+    {
+        std::cout << arr[i] << ", ";
+        ++i;
+    }
+	std::cout << '\n';
 }
-
 int main(){
 	
 	int		arr_i[3] = {1, 2, 3};
